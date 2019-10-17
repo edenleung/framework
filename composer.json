@@ -1,0 +1,20 @@
+{
+    "name": "ligth/framework",
+    "authors": [
+        {
+            "name": "xiaodit",
+            "email": "liangjinbiao@live.com"
+        }
+    ],
+    "require": {
+        "filp/whoops": "*",
+        "php-di/php-di": "*",
+        "illuminate/database": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ligth\\": "src"
+        }
+    }
+}
