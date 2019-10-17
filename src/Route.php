@@ -9,14 +9,20 @@ class Route
     public static $methods;
     public static $callbacks;
 
+    private static $allowMethods = ['GET', 'POST', 'DELETE', 'PUT'];
+
     use StaticInstance;
 
-    public static function get($path, $argv)
+    public static function __callStatic($method, $argv)
     {
-        $uri = strpos($path, '/') === 0 ? $path : '/' . $path;
-        self::$routes[] = $uri;
-        self::$methods[] = 'GET';
-        self::$callbacks[] = $argv;
+        $method = strtoupper($method);
+        if (in_array($method, self::$allowMethods)) {
+            list($path, $argv) = $argv;
+            $uri = strpos($path, '/') === 0 ? $path : '/' . $path;
+            self::$routes[] = $uri;
+            self::$methods[] = $method;
+            self::$callbacks[] = $argv;
+        }
     }
 
     public function dispatch(App $app, Request $request)
@@ -31,7 +37,7 @@ class Route
         if (empty($keys)) {
             throw new \Exception('Route: '. $path . ' Not Found');
         }
-        
+
         foreach ($keys as $key) {
             if ($method == self::$methods[$key]) {
                 if (!is_object(self::$callbacks[$key])) {
