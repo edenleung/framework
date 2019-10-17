@@ -279,14 +279,7 @@ class Response implements ResponseInterface
             header("{$name}: {$value}");
         }
 
-        echo json_encode(
-            [
-                'code'     => 1,
-                'message'  => 1,
-                'result'   => []
-            ],
-            JSON_UNESCAPED_UNICODE
-        );
+        // TODO
 
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();

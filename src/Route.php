@@ -56,7 +56,7 @@ class Route
                     $app->getContainer()->call([$namespace, $action]);
 
                 } else {
-                    call_user_func(self::$callbacks[$key]);
+                    $app->getContainer()->call(self::$callbacks[$key]);
                 }
             }
         }
