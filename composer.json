@@ -9,7 +9,8 @@
     "require": {
         "filp/whoops": "*",
         "php-di/php-di": "*",
-        "illuminate/database": "*"
+        "illuminate/database": "*",
+        "psr/http-message": "*"
     },
     "minimum-stability": "dev",
     "autoload": {

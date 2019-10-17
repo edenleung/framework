@@ -19,14 +19,19 @@ class Route
         self::$callbacks[] = $argv;
     }
 
-    public function dispatch(App $app)
+    public function dispatch(App $app, Request $request)
     {
-        $path = $_SERVER['REQUEST_URI'];
-        $method = $_SERVER['REQUEST_METHOD'];
+        $path = $request->getUri();
+        $method = $request->getMethod();
+        if (strpos($path, '?')) {
+            list($path, $query) = explode('?', $path);
+        }
+        
         $keys = array_keys(self::$routes, $path);
         if (empty($keys)) {
             throw new \Exception('Route: '. $path . ' Not Found');
         }
+        
         foreach ($keys as $key) {
             if ($method == self::$methods[$key]) {
                 if (!is_object(self::$callbacks[$key])) {
